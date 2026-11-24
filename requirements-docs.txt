@@ -1,0 +1,3 @@
+# Only needed to build or preview the Kairos website (mkdocs.yml).
+# Running the agents and the eval needs requirements.txt only.
+mkdocs-material==9.8.2

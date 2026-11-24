@@ -1,0 +1,15 @@
+{#- Adds a quick-access bar above every page, linking to the most-used pages.
+    To change the links, edit the list below. base_url keeps links working from
+    any page depth. -#}
+{% extends "base.html" %}
+
+{% block announce %}
+<nav class="kairos-quick" aria-label="Quick access">
+  <span class="kairos-quick__label">Quick access:</span>
+  <a href="{{ base_url }}/overview/">Overview</a>
+  <a href="{{ base_url }}/quickstart/">Quickstart</a>
+  <a href="{{ base_url }}/how-to/run-the-eval/">Free eval</a>
+  <a href="{{ base_url }}/eval-dashboard/">Eval dashboard</a>
+  <a href="{{ base_url }}/troubleshooting/">Troubleshooting</a>
+</nav>
+{% endblock %}

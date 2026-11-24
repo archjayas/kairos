@@ -1,0 +1,98 @@
+# Kairos website. Preview: mkdocs serve   Build: mkdocs build   GitHub Pages: mkdocs gh-deploy
+# See docs/how-to/publish-the-site.md.
+
+site_name: Kairos
+site_description: Build your first AI agent and learn to evaluate it, in plain Python, mainly with Claude.
+
+# Change this once before publishing. Every "view the code" link on the site is built from it.
+repo_url: https://github.com/archjayas/kairos
+repo_name: kairos
+edit_uri: edit/main/docs/
+
+docs_dir: docs
+hooks:
+  - mkdocs_hooks.py   # turns links to code files (outside docs/) into GitHub links
+
+theme:
+  name: material
+  custom_dir: overrides   # adds the quick-access bar (overrides/main.html)
+  logo: assets/logo.svg
+  favicon: assets/logo.svg
+  features:
+    - navigation.tabs          # menu across the top, Home first
+    - navigation.tabs.sticky   # keep the menu visible while scrolling
+    - navigation.path          # breadcrumbs above each page title
+    - navigation.instant
+    - navigation.sections
+    - navigation.top
+    - navigation.footer
+    - search.suggest
+    - search.highlight
+    - content.code.copy
+  palette:
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: indigo
+      accent: amber
+      toggle:
+        icon: material/weather-night
+        name: Switch to dark mode
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: indigo
+      accent: amber
+      toggle:
+        icon: material/weather-sunny
+        name: Switch to light mode
+
+extra_css:
+  - stylesheets/extra.css
+
+markdown_extensions:
+  - admonition
+  - attr_list
+  - md_in_html
+  - tables
+  - toc:
+      permalink: true
+  - pymdownx.highlight
+  - pymdownx.superfences
+  - pymdownx.emoji:
+      emoji_index: !!python/name:material.extensions.emoji.twemoji
+      emoji_generator: !!python/name:material.extensions.emoji.to_svg
+
+# Fail the strict build on links to #sections that don't exist, not just missing pages.
+validation:
+  anchors: warn
+
+# The top-level entries are the tabs across the top. Same groups as the home page
+# cards, with short labels so the tab row fits.
+nav:
+  - Home: index.md
+  - Basics:
+      - Overview: overview.md
+      - Glossary: glossary.md
+  - Get started:
+      - Quickstart: quickstart.md
+      - Run and read the eval: how-to/run-the-eval.md
+      - Eval dashboard: eval-dashboard.md
+  - Evals:
+      - Write your own eval cases: how-to/add-eval-cases.md
+      - Compare models: how-to/switch-models.md
+  - Extend:
+      - Use it over MCP: how-to/use-mcp.md
+      - Port the agent to Gemini: PORTING.md
+      - Add a field to the tool: how-to/add-a-tool-field.md
+      - Use your real Google Calendar: how-to/use-google-calendar.md
+      - Bundle as a Claude Code plugin: how-to/package-as-plugin.md
+      - Publish this site: how-to/publish-the-site.md
+  - Help:
+      - Troubleshooting and FAQ: troubleshooting.md
+      - Change your timezone: how-to/change-timezone.md
+      - "Friction log: Claude": FRICTION_LOG_CLAUDE.md
+      - "Friction log: Gemini": FRICTION_LOG_GEMINI.md
+      - "Friction log: MCP SDK": FRICTION_LOG_MCP.md
+  - My progress:
+      - Your badges: progress.md
+      - See your progress: how-to/see-your-progress.md
+  - Release notes: release-notes.md

@@ -1,0 +1,15 @@
+# Claude agent (the main path)
+anthropic==2.13.0
+
+# Timezone data. Built into macOS and Linux; Windows needs this package.
+tzdata==2026.6
+
+# Gemini agent (optional)
+google-genai==2.14.0
+
+# Real Google Calendar backend (optional; the default mock backend doesn't need these)
+google-api-python-client==2.198.0
+google-auth-oauthlib==1.4.0
+
+# Path 2: the MCP server (mcp_server.py)
+mcp==2.3.0

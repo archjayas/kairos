@@ -1,0 +1,182 @@
+/* ---------- Home page banner ---------- */
+.kairos-banner {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+  margin: 0 0 2.5rem;
+  padding: 2rem 2rem 1.75rem;
+  border-radius: 0.75rem;
+  color: var(--md-primary-bg-color);
+  background: linear-gradient(135deg, var(--md-primary-fg-color) 0%, var(--md-primary-fg-color--dark) 100%);
+}
+
+.kairos-banner h1 {
+  margin: 0 0 0.25rem;
+  color: inherit;
+  font-weight: 700;
+}
+
+.kairos-logo {
+  width: 6rem;
+  height: 6rem;
+  flex-shrink: 0;
+  border-radius: 50%;
+  /* A white halo and soft shadow lift the colorful badge off the indigo banner. */
+  box-shadow: 0 0 0 4px rgba(255, 255, 255, 0.85), 0 8px 24px rgba(15, 10, 60, 0.35);
+}
+
+.kairos-tagline {
+  font-size: 1.25rem;
+  margin: 0 0 1.25rem;
+}
+
+.kairos-banner .md-button {
+  color: var(--md-primary-bg-color);
+  border-color: var(--md-primary-bg-color);
+  margin: 0 0.5rem 0.5rem 0;
+}
+
+.kairos-banner .md-button--primary {
+  color: var(--md-primary-fg-color--dark);
+  background-color: var(--md-primary-bg-color);
+}
+
+/* ---------- Audience labels ---------- */
+.kairos-audience {
+  display: inline-block;
+  margin-right: 0.4rem;
+  padding: 0.1rem 0.6rem;
+  border-radius: 1rem;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: #fff;
+  background-color: #2e7d32;
+}
+
+.kairos-audience--advanced {
+  background-color: #6a1b9a;
+}
+
+.kairos-soon {
+  display: inline-block;
+  margin-right: 0.3rem;
+  padding: 0 0.45rem;
+  border-radius: 0.3rem;
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: var(--md-default-fg-color--light);
+  border: 1px solid var(--md-default-fg-color--lighter);
+}
+
+/* ---------- Cards ---------- */
+.md-typeset .grid.cards > ul > li {
+  transition: box-shadow 0.15s ease, border-color 0.15s ease;
+}
+
+.md-typeset .grid.cards > ul > li ul {
+  margin-top: 0.4rem;
+}
+
+.md-typeset .grid.cards > ul > li ul li {
+  margin-bottom: 0.25rem;
+}
+
+/* ---------- Quick-access bar (overrides/main.html) ---------- */
+.kairos-quick {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 0.35rem 1.1rem;
+  font-size: 0.75rem;
+}
+
+.kairos-quick__label {
+  font-weight: 700;
+  opacity: 0.8;
+}
+
+.kairos-quick a {
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+}
+
+/* ---------- Home page badges (mkdocs_hooks.py) ---------- */
+/* ".md-typeset ul" in the theme sets lists to display: flow-root, which stacked the
+   badges vertically; this selector is more specific, so the row stays horizontal. */
+.md-typeset ul.kairos-badge-row {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 1.25rem;
+  list-style: none;
+  margin: 0.75rem 0 0.25rem !important;
+  padding: 0 !important;
+}
+
+.md-typeset .kairos-badge-row > li.kairos-badge {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 6.5rem;
+  margin: 0;
+  padding: 0.4rem 0.2rem;
+  border-radius: 0.75rem;
+  cursor: help;
+  outline: none;
+  transition: transform 0.15s ease;
+}
+
+.kairos-badge svg { width: 4.5rem; height: 4.5rem; }
+.kairos-badge:hover, .kairos-badge:focus-visible { transform: translateY(-3px); }
+.kairos-badge:focus-visible { box-shadow: 0 0 0 2px var(--md-accent-fg-color); }
+
+.kairos-badge-name {
+  margin-top: 0.35rem;
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-align: center;
+  line-height: 1.2;
+}
+
+/* The tooltip: hidden until the badge is hovered or focused. */
+.kairos-tip {
+  position: absolute;
+  bottom: calc(100% + 0.5rem);
+  left: 50%;
+  z-index: 10;
+  width: 15rem;
+  padding: 0.6rem 0.75rem;
+  border-radius: 0.5rem;
+  background: var(--md-default-fg-color);
+  color: var(--md-default-bg-color);
+  font-size: 0.72rem;
+  line-height: 1.45;
+  text-align: left;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
+  opacity: 0;
+  visibility: hidden;
+  transform: translate(-50%, 4px);
+  transition: opacity 0.15s ease, transform 0.15s ease;
+  pointer-events: none;
+}
+
+.kairos-tip > * { display: block; }
+.kairos-tip strong { font-size: 0.8rem; }
+.kairos-tip-status { margin: 0.1rem 0 0.35rem; opacity: 0.8; font-weight: 600; }
+.kairos-tip-how { margin-top: 0.35rem; opacity: 0.85; }
+
+.kairos-badge:hover .kairos-tip,
+.kairos-badge:focus-visible .kairos-tip,
+.kairos-badge:focus-within .kairos-tip {
+  opacity: 1;
+  visibility: visible;
+  transform: translate(-50%, 0);
+}
+
+.kairos-badges-more { font-size: 0.8rem; }

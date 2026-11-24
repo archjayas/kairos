@@ -1,0 +1,28 @@
+# Secrets: never commit these
+.env
+credentials.json
+token.json
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+*-env/
+
+# Local eval output (the committed example run lives in evals/recordings/)
+evals/results/
+
+# Editors / OS
+.vscode/
+.idea/
+.DS_Store
+
+# Built docs site (mkdocs build)
+site/
+
+# Learner progress (python progress.py), local only
+.kairos/
+
+# Google OAuth client file, if downloaded and not yet renamed
+client_secret*.json
