@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Kairos eval dashboard</title>
+<style>
+.viz-root { color-scheme: light; --surface: #fcfcfb; --surface-2: #f3f2ef; --text: #0b0b0b;
+  --text-2: #52514e; --grid: #e4e3df; --good: #0b7a0b; --bad: #c03030; --claude: #2a78d6; --gemini: #eb6834; --baseline: #1baf7a; }
+@media (prefers-color-scheme: dark) { .viz-root { color-scheme: dark; --surface: #1a1a19;
+  --surface-2: #252524; --text: #f0efec; --text-2: #c3c2b7; --grid: #3a3a38; --good: #3fbf3f;
+  --bad: #e66767; --claude: #3987e5; --gemini: #d95926; --baseline: #199e70; } }
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--surface); }
+.viz-root { font: 15px/1.5 system-ui, -apple-system, "Segoe UI", sans-serif; color: var(--text);
+  background: var(--surface); max-width: 1000px; margin: 0 auto; padding: 24px 16px 48px; }
+h1 { font-size: 1.6rem; margin: 0 0 4px; } h2 { font-size: 1.15rem; margin: 36px 0 8px; }
+.meta, .note, .muted { color: var(--text-2); } .meta { margin: 0 0 20px; }
+.tiles { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px; }
+.tile { background: var(--surface-2); border-radius: 10px; padding: 14px 16px; }
+.tile-name { font-weight: 600; display: flex; align-items: center; gap: 8px; }
+.tile-value { font-size: 2.2rem; font-weight: 700; line-height: 1.1; margin-top: 6px; }
+.tile-sub { color: var(--text-2); font-size: 0.85rem; }
+dl { display: grid; grid-template-columns: auto 1fr; gap: 2px 12px; margin: 10px 0 0; font-size: 0.85rem; }
+dt { color: var(--text-2); } dd { margin: 0; }
+.chip { display: inline-block; width: 12px; height: 12px; border-radius: 3px; }
+.legend { display: flex; gap: 18px; flex-wrap: wrap; margin: 4px 0 8px; font-size: 0.9rem; }
+.legend > span { display: inline-flex; align-items: center; gap: 6px; }
+.chart { width: 100%; height: auto; max-width: 760px; }
+.chart text { font: 12px system-ui, sans-serif; fill: var(--text-2); }
+.chart .row-label { fill: var(--text); font-size: 13px; } .chart .value { fill: var(--text); }
+.chart .grid { stroke: var(--grid); stroke-width: 1; }
+.chart .bar:hover { opacity: 0.8; }
+.chart .line { fill: none; stroke-width: 2; }
+.chart .dot { stroke: var(--surface); stroke-width: 2; }
+.table-wrap { overflow-x: auto; }
+table { border-collapse: collapse; width: 100%; font-size: 0.85rem; }
+th, td { text-align: left; padding: 6px 8px; border-bottom: 1px solid var(--grid); vertical-align: top; }
+thead th { color: var(--text-2); font-weight: 600; }
+td.request { min-width: 260px; } td.good { color: var(--good); font-weight: 600; white-space: nowrap; }
+td.bad { color: var(--bad); font-weight: 600; }
+code { background: var(--surface-2); padding: 1px 5px; border-radius: 4px; }
+</style></head>
+<body><main class="viz-root">
+<h1>Kairos eval dashboard</h1>
+<p class="meta">sample_run.json &middot; 20 cases &middot;
+"today" pinned to 2026-12-01
+&middot; Claude: claude-opus-5-5, Gemini: gemini-3.6-flash
+&middot; source boundary on
+</p>
+
+<h2>At a glance</h2>
+<div class="tiles">
+      <div class="tile">
+        <div class="tile-name"><span class="chip" style="background:var(--claude)"></span>Claude</div>
+        <div class="tile-value">100%</div>
+        <div class="tile-sub">of cases passed (20/20)</div>
+        <dl>
+          <dt>Made-up fields</dt><dd>0%</dd>
+          <dt>Tokens</dt><dd>not recorded</dd>
+          <dt>Errors</dt><dd>0</dd>
+        </dl>
+      </div>
+      <div class="tile">
+        <div class="tile-name"><span class="chip" style="background:var(--gemini)"></span>Gemini</div>
+        <div class="tile-value">100%</div>
+        <div class="tile-sub">of cases passed (20/20)</div>
+        <dl>
+          <dt>Made-up fields</dt><dd>0%</dd>
+          <dt>Tokens</dt><dd>not recorded</dd>
+          <dt>Errors</dt><dd>0</dd>
+        </dl>
+      </div>
+      <div class="tile">
+        <div class="tile-name"><span class="chip" style="background:var(--baseline)"></span>Baseline (no AI)</div>
+        <div class="tile-value">85%</div>
+        <div class="tile-sub">of cases passed (17/20)</div>
+        <dl>
+          <dt>Made-up fields</dt><dd>0%</dd>
+          <dt>Tokens</dt><dd>not recorded</dd>
+          <dt>Errors</dt><dd>0</dd>
+        </dl>
+      </div></div>
+
+<h2>Accuracy by check</h2>
+<p class="note">How often each extractor got each field right. Hover a bar for the counts.</p>
+<div class="legend"><span><span class="chip" style="background:var(--claude)"></span>Claude</span><span><span class="chip" style="background:var(--gemini)"></span>Gemini</span><span><span class="chip" style="background:var(--baseline)"></span>Baseline (no AI)</span></div>
+<svg class="chart" viewBox="0 0 630 356" role="img" aria-label="Accuracy by check for each extractor"><line class="grid" x1="190.0" y1="0" x2="190.0" y2="340"/><text class="axis" x="190.0" y="354" text-anchor="middle">0%</text><line class="grid" x1="380.0" y1="0" x2="380.0" y2="340"/><text class="axis" x="380.0" y="354" text-anchor="middle">50%</text><line class="grid" x1="570.0" y1="0" x2="570.0" y2="340"/><text class="axis" x="570.0" y="354" text-anchor="middle">100%</text><text class="row-label" x="180" y="29.0" text-anchor="end">Attendees</text><g class="bar" style="fill:var(--claude)"><title>Claude, Attendees: 17/17 (100%)</title><path d="M190,4 h376.0 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-376.0 z"/></g><text class="value" x="576.0" y="14">100%</text><g class="bar" style="fill:var(--gemini)"><title>Gemini, Attendees: 17/17 (100%)</title><path d="M190,18 h376.0 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-376.0 z"/></g><text class="value" x="576.0" y="28">100%</text><g class="bar" style="fill:var(--baseline)"><title>Baseline (no AI), Attendees: 17/17 (100%)</title><path d="M190,32 h376.0 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-376.0 z"/></g><text class="value" x="576.0" y="42">100%</text><text class="row-label" x="180" y="85.0" text-anchor="end">Start time</text><g class="bar" style="fill:var(--claude)"><title>Claude, Start time: 17/17 (100%)</title><path d="M190,60 h376.0 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-376.0 z"/></g><text class="value" x="576.0" y="70">100%</text><g class="bar" style="fill:var(--gemini)"><title>Gemini, Start time: 17/17 (100%)</title><path d="M190,74 h376.0 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-376.0 z"/></g><text class="value" x="576.0" y="84">100%</text><g class="bar" style="fill:var(--baseline)"><title>Baseline (no AI), Start time: 16/17 (94%)</title><path d="M190,88 h353.6 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-353.6 z"/></g><text class="value" x="553.6470588235295" y="98">94%</text><text class="row-label" x="180" y="141.0" text-anchor="end">End time</text><g class="bar" style="fill:var(--claude)"><title>Claude, End time: 17/17 (100%)</title><path d="M190,116 h376.0 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-376.0 z"/></g><text class="value" x="576.0" y="126">100%</text><g class="bar" style="fill:var(--gemini)"><title>Gemini, End time: 17/17 (100%)</title><path d="M190,130 h376.0 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-376.0 z"/></g><text class="value" x="576.0" y="140">100%</text><g class="bar" style="fill:var(--baseline)"><title>Baseline (no AI), End time: 16/17 (94%)</title><path d="M190,144 h353.6 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-353.6 z"/></g><text class="value" x="553.6470588235295" y="154">94%</text><text class="row-label" x="180" y="197.0" text-anchor="end">Zoom link</text><g class="bar" style="fill:var(--claude)"><title>Claude, Zoom link: 17/17 (100%)</title><path d="M190,172 h376.0 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-376.0 z"/></g><text class="value" x="576.0" y="182">100%</text><g class="bar" style="fill:var(--gemini)"><title>Gemini, Zoom link: 17/17 (100%)</title><path d="M190,186 h376.0 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-376.0 z"/></g><text class="value" x="576.0" y="196">100%</text><g class="bar" style="fill:var(--baseline)"><title>Baseline (no AI), Zoom link: 17/17 (100%)</title><path d="M190,200 h376.0 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-376.0 z"/></g><text class="value" x="576.0" y="210">100%</text><text class="row-label" x="180" y="253.0" text-anchor="end">Agenda</text><g class="bar" style="fill:var(--claude)"><title>Claude, Agenda: 9/9 (100%)</title><path d="M190,228 h376.0 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-376.0 z"/></g><text class="value" x="576.0" y="238">100%</text><g class="bar" style="fill:var(--gemini)"><title>Gemini, Agenda: 9/9 (100%)</title><path d="M190,242 h376.0 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-376.0 z"/></g><text class="value" x="576.0" y="252">100%</text><g class="bar" style="fill:var(--baseline)"><title>Baseline (no AI), Agenda: 7/9 (78%)</title><path d="M190,256 h291.6 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-291.6 z"/></g><text class="value" x="491.55555555555554" y="266">78%</text><text class="row-label" x="180" y="309.0" text-anchor="end">Asks when info is missing</text><g class="bar" style="fill:var(--claude)"><title>Claude, Asks when info is missing: 3/3 (100%)</title><path d="M190,284 h376.0 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-376.0 z"/></g><text class="value" x="576.0" y="294">100%</text><g class="bar" style="fill:var(--gemini)"><title>Gemini, Asks when info is missing: 3/3 (100%)</title><path d="M190,298 h376.0 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-376.0 z"/></g><text class="value" x="576.0" y="308">100%</text><g class="bar" style="fill:var(--baseline)"><title>Baseline (no AI), Asks when info is missing: 3/3 (100%)</title><path d="M190,312 h376.0 a4,4 0 0 1 4,4 v4 a4,4 0 0 1 -4,4 h-376.0 z"/></g><text class="value" x="576.0" y="322">100%</text></svg>
+
+<h2>Pass rate over time</h2>
+
+<p class="note">Run the eval again to see a trend: 0 run recorded so far. Each run of <code>run_evals.py</code> adds a point.</p>
+
+<h2>Every case</h2>
+<p class="note">Hover a result to see why it passed or failed.</p>
+<div class="table-wrap"><table><thead><tr><th>Case</th><th>Category</th><th>Request</th><th>Claude</th><th>Gemini</th><th>Baseline (no AI)</th></tr></thead><tbody><tr><th scope="row">c01</th><td class="muted">simple</td><td class="request">Schedule a budget review with dana@example.com on December 3 at 10am for one hour.</td><td class="good" title="">&#10003; Pass</td><td class="good" title="">&#10003; Pass</td><td class="good" title="">&#10003; Pass</td></tr><tr><th scope="row">c02</th><td class="muted">default_duration</td><td class="request">Meet with erin@example.com on Dec 8 at 4pm to go over the Q1 roadmap.</td><td class="good" title="">&#10003; Pass</td><td class="good" title="">&#10003; Pass</td><td class="good" title="">&#10003; Pass</td></tr><tr><th scope="row">c03</th><td class="muted">relative_date</td><td class="request">Tomorrow at 9am, 45 minutes with frank@example.com for our sprint retro.</td><td class="good" title="">&#10003; Pass</td><td class="good" title="">&#10003; Pass</td><td class="good" title="">&#10003; Pass</td></tr><tr><th scope="row">c04</th><td class="muted">relative_date</td><td class="request">Book time with grace@example.com this coming Monday at 1:30pm for 30 minutes to review the hiring pipeline.</td><td class="good" title="">&#10003; Pass</td><td class="good" title="">&#10003; Pass</td><td class="good" title="">&#10003; Pass</td></tr><tr><th scope="row">c05</th><td class="muted">relative_date</td><td class="request">In two days at noon, lunch sync with henry@example.com.</td><td class="good" title="">&#10003; Pass</td><td class="good" title="">&#10003; Pass</td><td class="good" title="">&#10003; Pass</td></tr><tr><th scope="row">c06</th><td class="muted">duration</td><td class="request">Block Dec 10 from 1pm to 2:30pm with ivy@example.com to plan the offsite.</td><td class="good" title="">&#10003; Pass</td><td class="good" title="">&#10003; Pass</td><td class="good" title="">&#10003; Pass</td></tr><tr><th scope="row">c07</th><td class="muted">duration</td><td class="request">Two-hour design workshop with jack@example.com on December 9 at 2pm.</td><td class="good" title="">&#10003; Pass</td><td class="good" title="">&#10003; Pass</td><td class="good" title="">&#10003; Pass</td></tr><tr><th scope="row">c08</th><td class="muted">multiple_attendees</td><td class="request">Set up a kickoff with kim@example.com, leo@example.com and maya@example.com on Dec 14 at 11am for 45 minutes.</td><td class="good" title="">&#10003; Pass</td><td class="good" title="">&#10003; Pass</td><td class="good" title="">&#10003; Pass</td></tr><tr><th scope="row">c09</th><td class="muted">zoom_and_agenda</td><td class="request">Schedule a vendor call with nora@example.com on Dec 11 at 3pm for 30 minutes. Agenda: pricing, contract terms, and timeline. Zoom: https://zoom.us/j/5551234567</td><td class="good" title="">&#10003; Pass</td><td class="good" title="">&#10003; Pass</td><td class="good" title="">&#10003; Pass</td></tr><tr><th scope="row">c10</th><td class="muted">zoom</td><td class="request">Can you put a 1:1 with omar@example.com on the calendar for Dec 15 at 9:30am? Use https://example.zoom.us/j/98765432100?pwd=abc123 for the call.</td><td class="good" title="">&#10003; Pass</td><td class="good" title="">&#10003; Pass</td><td class="good" title="">&#10003; Pass</td></tr><tr><th scope="row">c11</th><td class="muted">agenda</td><td class="request">I need 40 minutes with pat@example.com on Dec 16 at 10am. We&#x27;ll walk through the Q4 incident report and agree on follow-up owners.</td><td class="good" title="">&#10003; Pass</td><td class="good" title="">&#10003; Pass</td><td class="bad" title="agenda: expected present, got None">&#10007; Fail: Agenda</td></tr><tr><th scope="row">c12</th><td class="muted">timezone_dst</td><td class="request">Schedule a planning session with quinn@example.com on March 15, 2027 at 10am for an hour.</td><td class="good" title="">&#10003; Pass</td><td class="good" title="">&#10003; Pass</td><td class="good" title="">&#10003; Pass</td></tr><tr><th scope="row">c13</th><td class="muted">time_format</td><td class="request">Meeting with rosa@example.com on Dec 17 at 15:30 for 30 min about the launch checklist.</td><td class="good" title="">&#10003; Pass</td><td class="good" title="">&#10003; Pass</td><td class="good" title="">&#10003; Pass</td></tr><tr><th scope="row">c14</th><td class="muted">timezone_other</td><td class="request">Call with sam@example.com on Dec 4 at 3pm Eastern for 30 minutes to discuss the partnership.</td><td class="good" title="">&#10003; Pass</td><td class="good" title="">&#10003; Pass</td><td class="bad" title="start: expected 2026-12-04T15:00:00-05:00, got 2026-12-04T15:00:00-08:00; end: expected 2026-12-04T15:30:00-05:00, got 2026-12-04T15:30:00-08:00">&#10007; Fail: End time, Start time</td></tr><tr><th scope="row">c15</th><td class="muted">attendee_format</td><td class="request">Invite Tina Lopez &lt;tina@example.com&gt; to a demo on Dec 18 at 2pm for 45 minutes.</td><td class="good" title="">&#10003; Pass</td><td class="good" title="">&#10003; Pass</td><td class="good" title="">&#10003; Pass</td></tr><tr><th scope="row">c16</th><td class="muted">no_agenda</td><td class="request">Set up a meeting with uma@example.com on Dec 21 at 11am.</td><td class="good" title="">&#10003; Pass</td><td class="good" title="">&#10003; Pass</td><td class="good" title="">&#10003; Pass</td></tr><tr><th scope="row">c17</th><td class="muted">ambiguous_date</td><td class="request">Grab 30 minutes with victor@example.com next Friday at 10am to sync on budget.</td><td class="good" title="">&#10003; Pass</td><td class="good" title="">&#10003; Pass</td><td class="bad" title="agenda: expected present, got None">&#10007; Fail: Agenda</td></tr><tr><th scope="row">c18</th><td class="muted">incomplete</td><td class="request">Set up a 30 minute sync with Walter tomorrow at 3pm about the launch.</td><td class="good" title="">&#10003; Pass</td><td class="good" title="">&#10003; Pass</td><td class="good" title="">&#10003; Pass</td></tr><tr><th scope="row">c19</th><td class="muted">incomplete</td><td class="request">Find time with xena@example.com to talk about the budget.</td><td class="good" title="">&#10003; Pass</td><td class="good" title="">&#10003; Pass</td><td class="good" title="">&#10003; Pass</td></tr><tr><th scope="row">c20</th><td class="muted">incomplete</td><td class="request">Set up a meeting about the product launch.</td><td class="good" title="">&#10003; Pass</td><td class="good" title="">&#10003; Pass</td><td class="good" title="">&#10003; Pass</td></tr></tbody></table></div>
+
+<h2>Why each failure failed</h2>
+<ul><li><strong>Baseline (no AI)</strong>, c11: agenda: expected present, got None</li><li><strong>Baseline (no AI)</strong>, c14: start: expected 2026-12-04T15:00:00-05:00, got 2026-12-04T15:00:00-08:00</li><li><strong>Baseline (no AI)</strong>, c14: end: expected 2026-12-04T15:30:00-05:00, got 2026-12-04T15:30:00-08:00</li><li><strong>Baseline (no AI)</strong>, c17: agenda: expected present, got None</li></ul>
+
+<h2>Table view</h2>
+<div class="table-wrap"><table><thead><tr><th>Check</th><th>Claude</th><th>Gemini</th><th>Baseline (no AI)</th></tr></thead><tbody><tr><th scope='row'>Attendees</th><td>17/17</td><td>17/17</td><td>17/17</td></tr><tr><th scope='row'>Start time</th><td>17/17</td><td>17/17</td><td>16/17</td></tr><tr><th scope='row'>End time</th><td>17/17</td><td>17/17</td><td>16/17</td></tr><tr><th scope='row'>Zoom link</th><td>17/17</td><td>17/17</td><td>17/17</td></tr><tr><th scope='row'>Agenda</th><td>9/9</td><td>9/9</td><td>7/9</td></tr><tr><th scope='row'>Asks when info is missing</th><td>3/3</td><td>3/3</td><td>3/3</td></tr></tbody></table></div>
+</main></body></html>
