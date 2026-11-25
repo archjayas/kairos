@@ -69,7 +69,6 @@ agent. Now measure it properly, and extend it.
     - [Write your own eval cases](how-to/add-eval-cases.md)
     - [Compare models](how-to/switch-models.md)
     - [What the eval measures, and misses](how-to/run-the-eval.md#what-the-eval-doesnt-measure)
-    - <span class="kairos-soon">Coming soon</span> LLM-as-judge
 
 -   :material-puzzle-outline:{ .lg .middle } __Extend Kairos__
 
@@ -102,7 +101,7 @@ agent. Now measure it properly, and extend it.
 
     - [Troubleshooting and FAQ](troubleshooting.md)
     - [Change your timezone](how-to/change-timezone.md)
-    - [Friction logs: Claude](FRICTION_LOG_CLAUDE.md), [Gemini](FRICTION_LOG_GEMINI.md), [MCP](FRICTION_LOG_MCP.md)
+    - [Friction logs: Claude](FRICTION_LOG_CLAUDE.md), [Claude docs](FRICTION_LOG_CLAUDE_DOCS.md), [Gemini](FRICTION_LOG_GEMINI.md), [MCP](FRICTION_LOG_MCP.md)
 
 -   :material-history:{ .lg .middle } __Release notes__
 

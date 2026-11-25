@@ -201,6 +201,7 @@ shows as plain text.
 | [`docs/how-to/publish-the-site.md`](docs/how-to/publish-the-site.md) | Preview the website locally, or publish it to GitHub Pages or any host |
 | [`docs/PORTING.md`](docs/PORTING.md) | Claude and Gemini side by side: what changes when you move an agent between APIs |
 | [`docs/FRICTION_LOG_CLAUDE.md`](docs/FRICTION_LOG_CLAUDE.md), [`_GEMINI`](docs/FRICTION_LOG_GEMINI.md), [`_MCP`](docs/FRICTION_LOG_MCP.md) | What slowed me down in each API or SDK, with suggested fixes |
+| [`docs/FRICTION_LOG_CLAUDE_DOCS.md`](docs/FRICTION_LOG_CLAUDE_DOCS.md) | Notes from following Anthropic's quickstart and Messages API docs: what worked, and what to fix |
 | [`docs/stylesheets/extra.css`](docs/stylesheets/extra.css) | Styles for the website: banner, audience labels, cards, badges |
 | [`docs/assets/logo.svg`](docs/assets/logo.svg) | The Kairos logo: a clock badge whose hand is a check mark. Used in the banner, header, and browser tab |
 | [`docs/assets/badges/`](docs/assets/badges/) | The five badge images, shown on the progress page |

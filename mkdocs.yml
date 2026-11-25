@@ -92,6 +92,7 @@ nav:
       - "Friction log: Claude": FRICTION_LOG_CLAUDE.md
       - "Friction log: Gemini": FRICTION_LOG_GEMINI.md
       - "Friction log: MCP SDK": FRICTION_LOG_MCP.md
+      - "Friction log: Claude docs": FRICTION_LOG_CLAUDE_DOCS.md
   - My progress:
       - Your badges: progress.md
       - See your progress: how-to/see-your-progress.md
